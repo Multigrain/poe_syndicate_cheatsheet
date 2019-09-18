@@ -14,7 +14,7 @@ ENCOUNTERS_TEXT = [["1/2/3 Weapons with Veiled mods", "1/2/3 Armours with Veiled
                    ['1 Full Stack of Div. Cards', 'Random Div. Cards', 'Swap your Div. Card for a random one', 'Divination Scarab'],
                    ['8/12/16 Timed Craft', '10/15/20 Timed Craft', '10/15/20 Timed Craft', '10/15/20 Timed Craft'],
                    ['Random Items', 'Magic/Rare/ Unique Strongbox', 'Random Items with Quality', 'Ambush Scarab'],
-                   ['24/26/28 Quality to Weapon', '24/26/28 Quality to Weapon', '22/24/26 Quality to Flask', '25/30/35 Quality to Map'],
+                   ['24/26/28 Quality to Weapon', '24/26/28 Quality to Armour', '22/24/26 Quality to Flask', '25/30/35 Quality to Map'],
                    ['Breach Splinters', 'Abyss Jewels', 'T1/T2/T3 Upgrade Breachstone', 'Breach Scarab'],
                    ['Quality Currency', 'Currency Shards', 'Perandus Coins and Cadiro', 'Perandus Scarab'],
                    ['1/2/3 Talismans', '1/2/3 Rares with Aspect mods', 'Tier 1/2/3 Corrupt Amulet to Talisman', 'Bestiary Scarab'],
@@ -22,7 +22,7 @@ ENCOUNTERS_TEXT = [["1/2/3 Weapons with Veiled mods", "1/2/3 Armours with Veiled
                    ['Silver Coins', 'Random Currency', 'Blessed/ Divine/Exalt on an Item', 'Torment Scarab'],
                    ['Currency - Timed Take One', 'Unique - Timed Take One', 'Veiled Rare - Timed Take One', 'Div. Card - Timed Take One'],
                    ['Normal Maps', 'Rare Maps', 'Unique Maps', 'Cartography Scarab'],
-                   ['Items - Timed Take One', 'Random Equipment with Lab Enchant', '20/70/200M XP to a Gem', 'Harbinger Scarab'],
+                   ['Items - Timed Take One', 'Glove/Helm/Boots with Lab Enchant', '20/70/200M XP to a Gem', 'Harbinger Scarab'],
                    ['Legion Splinters', 'Legion Chests', 'Incubators', 'Legion Scarab'],
                    ['Gems with Random Quality', 'Socket Currency', '1/1-2/1-3 White Sockets on an Item', 'Shaper Scarab']]
 STATUS_COLOURS = [BACKGROUND_COLOUR, '#0a5511', '#54550a', '#590404']
