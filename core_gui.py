@@ -70,6 +70,7 @@ if __name__ == '__main__':
 
     # Syndicate labels
     syndicate_members = list_files(SYNDICATE_PATH)
+    syndicate_members.sort()
     syndicate_images = []
     syndicate_labels = []
     for i, syndicate_member in enumerate(syndicate_members):
@@ -81,6 +82,7 @@ if __name__ == '__main__':
 
     # Location labels
     location_list = list_files(LOCATION_PATH)
+    location_list.sort()
     location_images = []
     location_labels = []
     for i, location_name in enumerate(location_list):
@@ -92,8 +94,10 @@ if __name__ == '__main__':
     encounter_images = [[None]*len(location_list) for i in range(len(syndicate_members))]
     encounter_labels = [[None]*len(location_list) for i in range(len(syndicate_members))]
     syndicate_encounters = list_folders(ENCOUNTER_PATH)
+    syndicate_encounters.sort()
     for i, syndicate_encounter in enumerate(syndicate_encounters):
         location_encounters = list_files(os.path.join(ENCOUNTER_PATH, syndicate_encounter))
+        location_encounters.sort()
         for j, location_encounter in enumerate(location_encounters):
             encounter_images[i][j] = ImageTk.PhotoImage(Image.open(os.path.join(ENCOUNTER_PATH, syndicate_encounter, location_encounter)))
             encounter_labels[i][j] = Cell(grid_frame, image=encounter_images[i][j], text=ENCOUNTERS_TEXT[i][j],
