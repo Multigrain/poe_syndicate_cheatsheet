@@ -22,7 +22,7 @@ ENCOUNTERS_TEXT = [["1/2/3 Weapons with Veiled mods", "1/2/3 Armours with Veiled
                    ['Silver Coins', 'Random Currency', 'Blessed/ Divine/Exalt on an Item', 'Torment Scarab'],
                    ['Currency - Timed Take One', 'Unique - Timed Take One', 'Veiled Rare - Timed Take One', 'Div. Card - Timed Take One'],
                    ['Normal Maps', 'Rare Maps', 'Unique Maps', 'Cartography Scarab'],
-                   ['Items - Timed Take One', 'Glove/Helm/Boots with Lab Enchant', '20/70/200M XP to a Gem', 'Harbinger Scarab'],
+                   ['Items - Timed Take One', 'Glove/Boot/Helms with Lab Enchant', '20/70/200M XP to a Gem', 'Harbinger Scarab'],
                    ['Legion Splinters', 'Legion Chests', 'Incubators', 'Legion Scarab'],
                    ['Gems with Random Quality', 'Socket Currency', '1/1-2/1-3 White Sockets on an Item', 'Shaper Scarab']]
 STATUS_COLOURS = [BACKGROUND_COLOUR, '#0a5511', '#54550a', '#590404']
