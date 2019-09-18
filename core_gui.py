@@ -22,7 +22,7 @@ ENCOUNTERS_TEXT = [["1/2/3 Weapons with Veiled mods", "1/2/3 Armours with Veiled
                    ['Silver Coins', 'Random Currency', 'Blessed/ Divine/Exalt on an Item', 'Torment Scarab'],
                    ['Currency - Timed Take One', 'Unique - Timed Take One', 'Veiled Rare - Timed Take One', 'Div. Card - Timed Take One'],
                    ['Normal Maps', 'Rare Maps', 'Unique Maps', 'Cartography Scarab'],
-                   ['Items - Timed Take One', 'Gloves/Boots/Helmet Random with Lab Enchant', '20/70/200M XP to a Gem', 'Harbinger Scarab'],
+                   ['Items - Timed Take One', 'Random Equipment with Lab Enchant', '20/70/200M XP to a Gem', 'Harbinger Scarab'],
                    ['Legion Splinters', 'Legion Chests', 'Incubators', 'Legion Scarab'],
                    ['Gems with Random Quality', 'Socket Currency', '1/1-2/1-3 White Sockets on an Item', 'Shaper Scarab']]
 STATUS_COLOURS = [BACKGROUND_COLOUR, '#0a5511', '#54550a', '#590404']
@@ -75,7 +75,7 @@ if __name__ == '__main__':
     syndicate_labels = []
     for i, syndicate_member in enumerate(syndicate_members):
         syndicate_name = syndicate_member.split('.')[0].replace('_', ' ')
-        syndicate_images.append(ImageTk.PhotoImage(Image.open(os.path.join(SYNDICATE_PATH, syndicate_member)).resize((100, 100))))
+        syndicate_images.append(ImageTk.PhotoImage(Image.open(os.path.join(SYNDICATE_PATH, syndicate_member)).resize((90, 90))))
         syndicate_labels.append(Cell(grid_frame, image=syndicate_images[-1], text=syndicate_name,
                                               compound=tkinter.TOP, font=(None, 14)))
         syndicate_labels[-1].grid(row=0, column=i + 1, padx=1, pady=1)
@@ -86,7 +86,7 @@ if __name__ == '__main__':
     location_images = []
     location_labels = []
     for i, location_name in enumerate(location_list):
-        location_images.append(ImageTk.PhotoImage(Image.open(os.path.join(LOCATION_PATH, location_name))))
+        location_images.append(ImageTk.PhotoImage(Image.open(os.path.join(LOCATION_PATH, location_name)).resize((45, 90))))
         location_labels.append(Cell(grid_frame, image=location_images[-1]))
         location_labels[-1].grid(row=i+1, column=0, padx=1, pady=1, sticky=tkinter.NSEW)
 
@@ -99,17 +99,17 @@ if __name__ == '__main__':
         location_encounters = list_files(os.path.join(ENCOUNTER_PATH, syndicate_encounter))
         location_encounters.sort()
         for j, location_encounter in enumerate(location_encounters):
-            encounter_images[i][j] = ImageTk.PhotoImage(Image.open(os.path.join(ENCOUNTER_PATH, syndicate_encounter, location_encounter)))
+            encounter_images[i][j] = Image.open(os.path.join(ENCOUNTER_PATH, syndicate_encounter, location_encounter))
+            encounter_images[i][j] = ImageTk.PhotoImage(encounter_images[i][j].resize((int(encounter_images[i][j].width*0.9), int(encounter_images[i][j].height*0.9))))
             encounter_labels[i][j] = Cell(grid_frame, image=encounter_images[i][j], text=ENCOUNTERS_TEXT[i][j],
-                                          font=(None, 12), wraplength=100, compound=tkinter.TOP)
+                                          font=(None, 12), wraplength=90, compound=tkinter.TOP)
             encounter_labels[i][j].grid(row=j+1, column=i+1, padx=1, pady=1, sticky=tkinter.NSEW)
 
     main_frame.pack(fill=tkinter.BOTH, expand=True)
     main_window.update()
     canvas.configure(scrollregion=canvas.bbox(tkinter.ALL))
 
-    main_window.minsize(grid_frame.winfo_height() + 21, grid_frame.winfo_height() + 21)
-    main_window.geometry(str(grid_frame.winfo_width() + 21) + 'x' + str(grid_frame.winfo_height() + 21))
+    main_window.geometry(str(grid_frame.winfo_width()) + 'x' + str(grid_frame.winfo_height()))
     main_window.mainloop()
 
 
