@@ -1,7 +1,9 @@
 import tkinter
+from tkinter import messagebox
 import os
 from PIL import ImageTk, Image
 
+SAVE_FILE = './save.txt'
 SYNDICATE_PATH = './assets/members'
 LOCATION_PATH = './assets/locations'
 ENCOUNTER_PATH = './assets/encounters'
@@ -29,15 +31,18 @@ STATUS_COLOURS = [BACKGROUND_COLOUR, '#0a5511', '#54550a', '#590404']
 
 
 class Cell(tkinter.Label):
-    def __init__(self, master, **kwargs):
-        super(Cell, self).__init__(master, background=BACKGROUND_COLOUR, foreground=FOREGROUND_COLOUR, **kwargs)
-
-        self.current_colour = 0
+    def __init__(self, master, current_colour=0, **kwargs):
+        super(Cell, self).__init__(master, foreground=FOREGROUND_COLOUR, **kwargs)
+        self.current_colour = current_colour
+        self.set_background_colour()
         self.bind('<Button-1>', self.click_event)
 
     def click_event(self, event):
-        self.current_colour += 1
-        self.configure(background=STATUS_COLOURS[self.current_colour%len(STATUS_COLOURS)])
+        self.current_colour = (self.current_colour + 1)%len(STATUS_COLOURS)
+        self.set_background_colour()
+
+    def set_background_colour(self):
+        self.configure(background=STATUS_COLOURS[self.current_colour])
 
 
 def list_files(path):
@@ -46,6 +51,36 @@ def list_files(path):
 
 def list_folders(path):
     return next(os.walk(path))[1]
+
+
+def check_file(path):
+    return os.path.isfile(path)
+
+
+def on_closing(main_window, syndicate_labels, location_labels, encounter_labels):
+    if messagebox.askyesno("Save and Quit", "Do you want to save before quiting?"):
+        save_data_colours(syndicate_labels, location_labels, encounter_labels)
+
+    main_window.destroy()
+
+
+def save_data_colours(syndicate_labels, location_labels, encounter_labels):
+    save_data = open(SAVE_FILE, 'w')
+    for i in syndicate_labels:
+        save_data.write(str(i.current_colour) + ' ')
+
+    save_data.write('\n')
+    for i in location_labels:
+        save_data.write(str(i.current_colour) + ' ')
+
+    save_data.write('\n')
+    for i in encounter_labels:
+        for j in i:
+            save_data.write(str(j.current_colour) + ' ')
+
+        save_data.write('\n')
+
+    save_data.close()
 
 
 if __name__ == '__main__':
@@ -68,6 +103,13 @@ if __name__ == '__main__':
     origin_label = tkinter.Label(grid_frame, background=BACKGROUND_COLOUR)
     origin_label.grid(row=0, column=0, sticky=tkinter.NSEW, padx=(0, 1), pady=(0, 1))
 
+    # Checks if save data exists and loads
+    save_colours = []
+    if check_file(SAVE_FILE):
+        save_data = open(SAVE_FILE, 'r')
+        with open(SAVE_FILE, 'r') as save_data:
+            save_colours = [[int(x) for x in line.split()] for line in save_data]
+
     # Syndicate labels
     syndicate_members = list_files(SYNDICATE_PATH)
     syndicate_members.sort()
@@ -76,8 +118,9 @@ if __name__ == '__main__':
     for i, syndicate_member in enumerate(syndicate_members):
         syndicate_name = syndicate_member.split('.')[0].replace('_', ' ')
         syndicate_images.append(ImageTk.PhotoImage(Image.open(os.path.join(SYNDICATE_PATH, syndicate_member)).resize((90, 90))))
-        syndicate_labels.append(Cell(grid_frame, image=syndicate_images[-1], text=syndicate_name,
-                                              compound=tkinter.TOP, font=(None, 14)))
+        syndicate_labels.append(Cell(grid_frame, current_colour=save_colours[0][i] if save_colours else 0,
+                                     image=syndicate_images[-1], text=syndicate_name, compound=tkinter.TOP,
+                                     font=(None, 14)))
         syndicate_labels[-1].grid(row=0, column=i + 1, padx=1, pady=1)
 
     # Location labels
@@ -87,7 +130,8 @@ if __name__ == '__main__':
     location_labels = []
     for i, location_name in enumerate(location_list):
         location_images.append(ImageTk.PhotoImage(Image.open(os.path.join(LOCATION_PATH, location_name)).resize((45, 90))))
-        location_labels.append(Cell(grid_frame, image=location_images[-1]))
+        location_labels.append(Cell(grid_frame, current_colour=save_colours[1][i] if save_colours else 0,
+                                    image=location_images[-1]))
         location_labels[-1].grid(row=i+1, column=0, padx=1, pady=1, sticky=tkinter.NSEW)
 
     # Encounters
@@ -101,7 +145,8 @@ if __name__ == '__main__':
         for j, location_encounter in enumerate(location_encounters):
             encounter_images[i][j] = Image.open(os.path.join(ENCOUNTER_PATH, syndicate_encounter, location_encounter))
             encounter_images[i][j] = ImageTk.PhotoImage(encounter_images[i][j].resize((int(encounter_images[i][j].width*0.9), int(encounter_images[i][j].height*0.9))))
-            encounter_labels[i][j] = Cell(grid_frame, image=encounter_images[i][j], text=ENCOUNTERS_TEXT[i][j],
+            encounter_labels[i][j] = Cell(grid_frame, current_colour=save_colours[2 + i][j] if save_colours else 0,
+                                          image=encounter_images[i][j], text=ENCOUNTERS_TEXT[i][j],
                                           font=(None, 12), wraplength=90, compound=tkinter.TOP)
             encounter_labels[i][j].grid(row=j+1, column=i+1, padx=1, pady=1, sticky=tkinter.NSEW)
 
@@ -110,6 +155,8 @@ if __name__ == '__main__':
     canvas.configure(scrollregion=canvas.bbox(tkinter.ALL))
 
     main_window.geometry(str(grid_frame.winfo_width()) + 'x' + str(grid_frame.winfo_height()))
+    main_window.protocol('WM_DELETE_WINDOW', lambda: on_closing(main_window, syndicate_labels, location_labels, encounter_labels))
+    main_window.bind('<Control-s>', lambda e: save_data_colours(syndicate_labels, location_labels, encounter_labels))
     main_window.mainloop()
 
 
