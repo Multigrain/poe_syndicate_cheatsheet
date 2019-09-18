@@ -19,6 +19,12 @@ There wasn't really one detailed reliable source that's up to date that I could 
 
 I have included a blank image if you don't want to run script, and an example image.
 
+## Requirements
+* python
+  * Tkinter
+  * Pillow
+
+
 ## To Do
 
 * Export/Import functionality
