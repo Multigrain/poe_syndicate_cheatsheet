@@ -19,9 +19,16 @@ There wasn't really one detailed reliable source that's up to date that I could 
 
 I have included a blank image if you don't want to run script, and an example image.
 
+## Supported OS
+* Windows
+
+I have only tested it on windows and mac. Mac tkinter has problems with the rgba images
+so either have to rework images or change the GUI framework. If anyone has a more elegant fix
+lemme know. Linux might work as I don't think it has same problem as OSx.
+
 ## Requirements
 * python
-  * Tkinter
+  * Tkinter (should be included by default in python 3.7+)
   * Pillow
 
 
