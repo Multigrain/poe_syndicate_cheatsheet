@@ -10,7 +10,7 @@ ENCOUNTER_PATH = './assets/encounters'
 BACKGROUND_COLOUR = '#222222'
 FRAME_COLOUR = '#333333'
 FOREGROUND_COLOUR = '#D9D9D9'
-ENCOUNTERS_TEXT = [["1/2/3 Weapons with Veiled mods", "1/2/3 Armours with Veiled mods", "Add 1-2 Veiled mods to Rare Item", "Jewellery with Veiled mod"],
+ENCOUNTERS_TEXT = [["1/2/3 Weapons with Veiled mods", "1/2/3 Armours with Veiled mods", "Add 1-2 Veiled mods to Rare Item", "Metamorph Scarab"],
                    ['1 Timeworn Unique', 'Harbinger and Horizon Orbs', 'Sextants', 'Sulphite Scarab'],
                    ['1/2/3 Unique Weapons', '1/2/3 Unique Armours', '1/2/3 Unique Jewellery', 'Reliquary Scarab'],
                    ['1 Full Stack of Div. Cards', 'Random Div. Cards', 'Swap your Div. Card for a random one', 'Divination Scarab'],
